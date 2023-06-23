@@ -1,0 +1,83 @@
+<!-- teacher-tools.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Teacher Tools</title>
+  <script src="tornado.js"></script>
+  <style>
+    /* CSS styles for the website */
+  </style>
+</head>
+<body>
+  <h1>Teacher Tools</h1>
+
+  <input type="file" id="question-file" accept=".txt">
+  <button onclick="uploadQuestions()">Upload Questions</button>
+
+  <div id="question-container"></div>
+
+  <label for="grid-size">Select Grid Size:</label>
+  <select id="grid-size">
+    <option value="12">12</option>
+    <option value="16">16</option>
+    <option value="20">20</option>
+    <option value="24">24</option>
+    <option value="28">28</option>
+    <option value="30">30</option>
+  </select>
+
+  <button onclick="generateGrid()">Generate Grid</button>
+
+  <div id="grid-container"></div>
+
+  <h2>Team 1 Score: <span id="team1-score">0</span></h2>
+  <h2>Team 2 Score: <span id="team2-score">0</span></h2>
+
+  <script>
+    // Tornado Game JavaScript code
+
+    var gridSize = 0;
+    var team1Score = 0;
+    var team2Score = 0;
+    var selectedNumbers = [];
+    var questions = [];
+
+    function uploadQuestions() {
+      var fileInput = document.getElementById('question-file');
+      var file = fileInput.files[0];
+      var reader = new FileReader();
+
+      reader.onload = function (event) {
+        var contents = event.target.result;
+        questions = contents.split('\n').map(function (line) {
+          return line.trim();
+        });
+
+        displayQuestion();
+      };
+
+      reader.readAsText(file);
+    }
+
+    function displayQuestion() {
+      var questionContainer = document.getElementById('question-container');
+      questionContainer.innerHTML = '';
+
+      if (questions.length > 0) {
+        var currentQuestion = questions.shift();
+
+        var questionElement = document.createElement('h3');
+        questionElement.textContent = currentQuestion;
+        questionContainer.appendChild(questionElement);
+      }
+    }
+
+    function generateGrid() {
+      // Grid generation code
+    }
+
+    // Rest of the code
+  </script>
+</body>
+</html>
+
